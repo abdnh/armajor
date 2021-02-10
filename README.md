@@ -1,0 +1,3 @@
+# The mnemonic major system for Arabic
+
+Docs to come...
