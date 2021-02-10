@@ -15,8 +15,13 @@ test:
 format:
 	python -m black $(wildcard src/*.py)
 
-check:
+typecheck:
+	python -m mypy $(filter-out src/dialog.py, $(wildcard src/*.py))
+
+lint:
 	python -m pylint $(filter-out src/dialog.py, $(wildcard src/*.py))
+
+check: lint typecheck
 
 zip: build.zip
 

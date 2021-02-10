@@ -1,8 +1,11 @@
 import os
 from typing import List
 
-from aqt import mw, gui_hooks
-from aqt.qt import QAction
+# pylint: disable=import-error, no-name-in-module
+# pylint: disable=invalid-name
+import aqt
+from aqt import gui_hooks
+from aqt.qt import QAction  # type: ignore
 from aqt.editor import Editor
 
 from .armajor_dialog import ArMajorDialog
@@ -35,9 +38,10 @@ def on_editor_did_init_buttons(buttons: List[str], editor: Editor):
     buttons.append(btn)
 
 
-action = QAction(mw)
-action.setText("مولد نظام المذكرات الصوتي للعربية")
-mw.form.menuTools.addAction(action)
-action.triggered.connect(lambda: open_dialog(mw))
+if aqt.mw:
+    action = QAction(aqt.mw)
+    action.setText("مولد نظام المذكرات الصوتي للعربية")
+    aqt.mw.form.menuTools.addAction(action)
+    action.triggered.connect(lambda: open_dialog(aqt.mw))
 
-gui_hooks.editor_did_init_buttons.append(on_editor_did_init_buttons)
+    gui_hooks.editor_did_init_buttons.append(on_editor_did_init_buttons)

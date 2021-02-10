@@ -1,11 +1,12 @@
 import sys
 
-from PyQt5.QtWidgets import QDialog, QApplication, QShortcut
-from PyQt5.QtGui import QKeySequence
+# pylint: disable=no-name-in-module
+from PyQt5.QtWidgets import QDialog, QApplication, QShortcut  # type: ignore
+from PyQt5.QtGui import QKeySequence  # type: ignore
 
 if __name__ == "__main__":
-    import dialog as armjaor_form
-    from armajor import ArabicMnemonicMajor
+    import dialog as armjaor_form  # type: ignore
+    from armajor import ArabicMnemonicMajor  # type: ignore
 else:
     from . import dialog as armjaor_form
     from .armajor import ArabicMnemonicMajor

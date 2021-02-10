@@ -1,4 +1,4 @@
-from armajor import ArabicMnemonicMajor
+from armajor import ArabicMnemonicMajor  # type: ignore
 
 
 table = {
@@ -198,7 +198,8 @@ table = {
 }
 
 
-def test_examples(m: ArabicMnemonicMajor):
+def test_examples():
+    m = ArabicMnemonicMajor()
     for k, v in table.items():
         res = m.lookup(k)
         # print(f"k = {k}, v = {v}, res = {res}")
@@ -227,5 +228,4 @@ def test_number_validation():
 
 
 test_number_validation()
-m = ArabicMnemonicMajor()
-test_examples(m)
+test_examples()

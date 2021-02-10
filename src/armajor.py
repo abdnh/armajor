@@ -1,4 +1,4 @@
-from typing import List, Union, Set
+from typing import List, Union, Set, Dict, Tuple
 
 
 class ArabicMnemonicMajor:
@@ -6,7 +6,7 @@ class ArabicMnemonicMajor:
         self._read_words(filename)
 
     def _read_words(self, filename: str) -> None:
-        self.word_dict = {}
+        self.word_dict: Dict[str, Set] = {}
         with open(filename, encoding="utf-8") as f:
             for line in f:
                 word = line.strip()
@@ -60,10 +60,10 @@ class ArabicMnemonicMajor:
         "9": {"ق", "ف"},
     }
 
-    def _numbers_to_consonants(self, text: str) -> List[str]:
+    def _numbers_to_consonants(self, text: str) -> Set[str]:
         numstr = "".join(reversed(text))
 
-        def get_combs(s: str):
+        def get_combs(s: str) -> List[Tuple]:
             "Get all possible combinations of adjacent digits."
             if len(s) < 2:
                 return [(*s)]
@@ -92,7 +92,7 @@ class ArabicMnemonicMajor:
             if len(l) == len(comb):
                 maps[comb] = l
 
-        def get_cons_strs(l: List, i: int):
+        def get_cons_strs(l: List, i: int) -> List[str]:
             "Return all possible consonant strings."
             if len(l) == i + 1:
                 return l[i]
@@ -105,8 +105,8 @@ class ArabicMnemonicMajor:
 
         # generate consonant strings from the mappings of each combination
         ret = set()
-        for v in maps.values():
-            ret |= set(get_cons_strs(v, 0))
+        for k in maps:
+            ret |= set(get_cons_strs(maps[k], 0))
 
         return ret
 
@@ -129,7 +129,7 @@ class ArabicMnemonicMajor:
 
     def lookup(self, num: Union[int, str]) -> Set[str]:
 
-        res = set()
+        res: Set = set()
         num = self.clean_num(num)
         if not num:
             return res
