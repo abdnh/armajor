@@ -1,0 +1,9 @@
+pylint
+black
+mypy
+pip
+
+pyqt5==5.15
+anki==2.1.26
+ankirspy==2.1.26
+aqt==2.1.26
