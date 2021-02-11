@@ -13,15 +13,18 @@ test:
 	cd src && python test.py
 
 format:
-	python -m black $(wildcard src/*.py)
+	python -m black src
+
+checkformat:
+	python -m black --diff --color src
 
 typecheck:
-	python -m mypy $(filter-out src/dialog.py, $(wildcard src/*.py))
+	python -m mypy src
 
 lint:
-	python -m pylint $(filter-out src/dialog.py, $(wildcard src/*.py))
+	python -m pylint src
 
-check: lint typecheck
+check: lint typecheck checkformat
 
 zip: build.zip
 

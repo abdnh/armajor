@@ -33,6 +33,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QCheckBox" name="wordToNum">
+       <property name="text">
+        <string>من كلمة إلى رقم</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QLineEdit" name="lineEdit">

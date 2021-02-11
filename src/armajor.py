@@ -1,50 +1,10 @@
 from typing import List, Union, Set, Dict, Tuple
+import unicodedata
 
 
 class ArabicMnemonicMajor:
     def __init__(self, filename: str = "words.txt"):
         self._read_words(filename)
-
-    def _read_words(self, filename: str) -> None:
-        self.word_dict: Dict[str, Set] = {}
-        with open(filename, encoding="utf-8") as f:
-            for line in f:
-                word = line.strip()
-                stripped = self._strip_rest(word)
-                s = self.word_dict.get(stripped, set())
-                s.add(word)
-                self.word_dict[stripped] = s
-
-    _valid_chars = {
-        "م",
-        "د",
-        "ل",
-        "ن",
-        "ذ",
-        "ب",
-        "ت",
-        "ث",
-        "ع",
-        "غ",
-        "س",
-        "ش",
-        "ر",
-        "ز",
-        "ج",
-        "خ",
-        "ط",
-        "ظ",
-        "ض",
-        "ح",
-        "ص",
-        "ه",
-        "ك",
-        "ق",
-        "ف",
-    }
-
-    def _strip_rest(self, s: str) -> str:
-        return "".join(c for c in s if c in self._valid_chars)
 
     # TODO: support custom mappings
     mappings = {
@@ -59,6 +19,47 @@ class ArabicMnemonicMajor:
         "8": {"ه", "ك"},
         "9": {"ق", "ف"},
     }
+
+    inverse_mappings = {
+        "م": 0,
+        "د": 0,
+        "ل": 1,
+        "ن": 1,
+        "ذ": 1,
+        "ب": 2,
+        "ت": 2,
+        "ث": 2,
+        "ع": 3,
+        "غ": 3,
+        "س": 3,
+        "ش": 3,
+        "ر": 4,
+        "ز": 4,
+        "ج": 5,
+        "خ": 5,
+        "ط": 6,
+        "ظ": 6,
+        "ض": 6,
+        "ح": 7,
+        "ص": 7,
+        "ه": 8,
+        "ك": 8,
+        "ق": 9,
+        "ف": 9,
+    }
+
+    def _strip_rest(self, s: str) -> str:
+        return "".join(c for c in s if c in self.inverse_mappings.keys())
+
+    def _read_words(self, filename: str) -> None:
+        self.word_dict: Dict[str, Set] = {}
+        with open(filename, encoding="utf-8") as f:
+            for line in f:
+                word = line.strip()
+                stripped = self._strip_rest(word)
+                s = self.word_dict.get(stripped, set())
+                s.add(word)
+                self.word_dict[stripped] = s
 
     def _numbers_to_consonants(self, text: str) -> Set[str]:
         numstr = "".join(reversed(text))
@@ -113,17 +114,8 @@ class ArabicMnemonicMajor:
     @staticmethod
     def clean_num(num: Union[int, str]) -> str:
         num = str(num)
-        num = num.strip()
-        # remove decimal separators
-        num = num.replace(".", "").replace(",", "")
-        # remove sign
-        num = num.replace("+", "").replace("-", "")
-
-        # validate each digit separately to preserve leading zeros
-        l = []
-        for i in num:
-            l.append(str(int(i)))
-        num = "".join(l)
+        # strip non-digits and convert to Arabic numerals
+        num = "".join(str(int(c)) for c in num if unicodedata.category(c) == "Nd")
 
         return num
 
@@ -133,6 +125,9 @@ class ArabicMnemonicMajor:
         num = self.clean_num(num)
         if not num:
             return res
+        # reject big numbers for now since they will take forever. 10 is enough anyway
+        if len(num) > 10:
+            return res
 
         cons_list = self._numbers_to_consonants(num)
         for c in cons_list:
@@ -140,6 +135,13 @@ class ArabicMnemonicMajor:
                 res.update(l)
 
         return res
+
+    def word_to_num(self, word: str) -> str:
+        word = self._strip_rest(word)
+        num = []
+        for c in word:
+            num.append(str(self.inverse_mappings[c]))
+        return "".join(reversed(num))
 
 
 if __name__ == "__main__":

@@ -1,5 +1,6 @@
 import os
 from typing import List
+import unicodedata
 
 # pylint: disable=import-error, no-name-in-module
 # pylint: disable=invalid-name
@@ -14,14 +15,21 @@ addon_dir = os.path.dirname(__file__)
 words_filename = os.path.join(addon_dir, "words.txt")
 
 
-def open_dialog(parent, search_text=""):
-    dialog = ArMajorDialog(parent, words_filename, search_text)
+def open_dialog(parent, search_text="", word_to_num_checked: bool = False):
+    dialog = ArMajorDialog(parent, words_filename, search_text, word_to_num_checked)
     dialog.exec_()
 
 
+def contains_digit(s: str):
+    for c in s:
+        if unicodedata.category(c) == "Nd":
+            return True
+    return False
+
+
 def open_dialog_in_editor(editor: Editor):
-    def cb(selected):
-        open_dialog(editor.widget, selected)
+    def cb(selected: str):
+        open_dialog(editor.widget, selected, not contains_digit(selected))
 
     editor.web.evalWithCallback("window.getSelection().toString()", cb)
 
