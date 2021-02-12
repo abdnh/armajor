@@ -10,7 +10,7 @@ src/dialog.py: designer/dialog.ui
 build: forms
 
 test:
-	cd src && python test.py
+	python -m pytest
 
 format:
 	python -m black src

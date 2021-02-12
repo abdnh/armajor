@@ -1,4 +1,15 @@
-from armajor import ArabicMnemonicMajor  # type: ignore
+import os
+
+import pytest
+
+from .armajor import ArabicMnemonicMajor  # type: ignore
+
+
+@pytest.fixture
+def armajor():
+    return ArabicMnemonicMajor(
+        filename=os.path.join(os.path.dirname(__file__), "words.txt")
+    )
 
 
 table = {
@@ -198,16 +209,16 @@ table = {
 }
 
 
-def test_examples(m: ArabicMnemonicMajor):
+def test_examples(armajor):
     for k, v in table.items():
-        res = m.lookup(k)
+        res = armajor.lookup(k)
         assert v <= res, (k, v, res)
 
 
-def test_inverse_examples(m: ArabicMnemonicMajor):
+def test_inverse_examples(armajor):
     for k, v in table.items():
         for i in v:
-            r = m.word_to_num(i)
+            r = armajor.word_to_num(i)
             assert r == k, (i, k, r)
 
 
@@ -228,9 +239,3 @@ def test_number_validation():
     assert clean_num("junk") == ""
     assert clean_num("23junk") == "23"
     assert clean_num("23junk32") == "2332"
-
-
-test_number_validation()
-m = ArabicMnemonicMajor()
-test_examples(m)
-test_inverse_examples(m)
