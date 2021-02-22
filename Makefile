@@ -34,6 +34,9 @@ build.zip: src/*
 	rm -rf src/__pycache__
 	( cd src/; zip -r ../$@ * )
 
+addon: zip
+	cp build.zip armajor.ankiaddon
+
 clean:
 	rm -f *.pyc
 	rm -f src/*.pyc
