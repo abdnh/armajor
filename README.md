@@ -3,7 +3,7 @@
 # نظام المذكرات الصوتي للعربية
 
 هذا تطبيق لنظام المذكرات الصوتي ([Mnemonic major system](https://en.wikipedia.org/wiki/Mnemonic_major_system)) للغة العربية،
-مع إضافة لبرنامج [أنكي](https://apps.ankiweb.net/).
+مع [إضافة](https://ankiweb.net/shared/info/616438440) لبرنامج [أنكي](https://apps.ankiweb.net/).
 
 
 ## مقدمة
@@ -60,6 +60,8 @@
 
 
 ## مراجع
+
+- صفحة الإضافة على أنكي ويب: https://ankiweb.net/shared/info/616438440
 
 - الجدول المستخدم في البرنامج مأخوذ من كتاب [الأسماء كلها](https://t.me/Asmaae_Kollaha).
 أنصح بقراءة الكتاب للاطلاع أكثر على هذه التقنية وتقنيات مفيدة أخرى.
