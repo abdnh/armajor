@@ -1,9 +1,7 @@
-pylint==2.6.0
-pytest==6.2.2
-black==20.8b1
-mypy==0.800
-pip==21.0.1
-pyqt5==5.15.1
-anki==2.1.40
-ankirspy==2.1.35
-aqt==2.1.40
+black
+pip>=20.1
+pytest==5.4.3
+pylint>=2.5.2,<3.0
+mypy>=0.770,<1.0
+anki==2.1.44
+aqt==2.1.44
