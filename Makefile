@@ -1,4 +1,4 @@
-.PHONY: all forms test build format check clean
+.PHONY: all forms test build format checkformat typecheck lint check clean addon zip
 
 all: build
 
@@ -36,6 +36,7 @@ build.zip: src/*
 
 addon: zip
 	cp build.zip armajor.ankiaddon
+	cp src/* dev-profile/addons21/armajor
 
 clean:
 	rm -f *.pyc
@@ -43,3 +44,4 @@ clean:
 	rm -f src/__pycache__
 	rm -f src/dialog.py
 	rm -f build.zip
+	rm -f armajor.ankiaddon

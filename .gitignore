@@ -1,10 +1,10 @@
 .vscode/
-
 .mypy_cache/
 .pytest_cache/
 __pycache__/
 venv/
-
 src/dialog.py
 build*.zip
 *.pyc
+*.ankiaddon
+dev-profile/
