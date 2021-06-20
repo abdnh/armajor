@@ -10,13 +10,16 @@ from aqt.qt import QAction  # type: ignore
 from aqt.editor import Editor
 
 from .armajor_dialog import ArMajorDialog
+from .armajor import ArabicMnemonicMajor
 
 addon_dir = os.path.dirname(__file__)
 words_filename = os.path.join(addon_dir, "words.txt")
 
 
 def open_dialog(parent, search_text="", word_to_num_checked: bool = False):
-    dialog = ArMajorDialog(parent, words_filename, search_text, word_to_num_checked)
+    if not getattr(aqt.mw, 'armajor', None):
+        aqt.mw.armajor = ArabicMnemonicMajor(words_filename)
+    dialog = ArMajorDialog(parent, aqt.mw.armajor, search_text, word_to_num_checked)
     dialog.exec_()
 
 

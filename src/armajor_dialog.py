@@ -16,7 +16,7 @@ class ArMajorDialog(QDialog):
     def __init__(
         self,
         parent,
-        words_filename: str,
+        major: ArabicMnemonicMajor,
         search_text: str = "",
         word_to_num_checked: bool = False,
     ):
@@ -35,7 +35,7 @@ class ArMajorDialog(QDialog):
         changeModeHotkey = QShortcut(QKeySequence("Ctrl+W"), self)
         changeModeHotkey.activated.connect(self.toggle_mode)
 
-        self.major = ArabicMnemonicMajor(words_filename)
+        self.major = major
         if search_text.strip():
             self.accept()
 
@@ -79,5 +79,6 @@ class ArMajorDialog(QDialog):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    d = ArMajorDialog(None, "words.txt")
+    major = ArabicMnemonicMajor("words.txt")
+    d = ArMajorDialog(None, major)
     d.exec_()
