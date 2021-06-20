@@ -28,10 +28,8 @@ def contains_digit(s: str):
 
 
 def open_dialog_in_editor(editor: Editor):
-    def cb(selected: str):
-        open_dialog(editor.widget, selected, not contains_digit(selected))
-
-    editor.web.evalWithCallback("window.getSelection().toString()", cb)
+    selected = editor.web.selectedText()
+    open_dialog(editor.widget, selected, not contains_digit(selected))
 
 
 def on_editor_did_init_buttons(buttons: List[str], editor: Editor):

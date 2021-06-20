@@ -67,7 +67,7 @@ class ArabicMnemonicMajor:
         def get_combs(s: str) -> List[Tuple]:
             "Get all possible combinations of adjacent digits."
             if len(s) < 2:
-                return [(*s)]
+                return [(s)]
             if len(s) == 2:
                 return [(s[0], s[1]), (s,)]
             ret = []
@@ -93,21 +93,21 @@ class ArabicMnemonicMajor:
             if len(l) == len(comb):
                 maps[comb] = l
 
-        def get_cons_strs(l: List, i: int) -> List[str]:
+        def get_cons_strs(l: List, i: int) -> Set[str]:
             "Return all possible consonant strings."
             if len(l) == i + 1:
                 return l[i]
-            r = []
+            r = set()
             nxt = get_cons_strs(l, i + 1)
             for j in l[i]:
                 for n in nxt:
-                    r.append(j + n)
+                    r.add(j + n)
             return r
 
         # generate consonant strings from the mappings of each combination
         ret = set()
         for k in maps:
-            ret |= set(get_cons_strs(maps[k], 0))
+            ret |= get_cons_strs(maps[k], 0)
 
         return ret
 
