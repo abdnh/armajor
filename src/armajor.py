@@ -67,7 +67,7 @@ class ArabicMnemonicMajor:
         def get_combs(s: str) -> List[Tuple]:
             "Get all possible combinations of adjacent digits."
             if len(s) < 2:
-                return [(s)]
+                return [(s,)]
             if len(s) == 2:
                 return [(s[0], s[1]), (s,)]
             ret = []

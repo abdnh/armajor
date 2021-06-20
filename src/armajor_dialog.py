@@ -5,8 +5,8 @@ from PyQt5.QtWidgets import QDialog, QApplication, QShortcut  # type: ignore
 from PyQt5.QtGui import QKeySequence  # type: ignore
 
 if __name__ == "__main__":
-    import dialog as armjaor_form  # type: ignore
-    from armajor import ArabicMnemonicMajor  # type: ignore
+    import dialog as armjaor_form  # type: ignore # pylint: disable=import-error
+    from armajor import ArabicMnemonicMajor  # type: ignore # pylint: disable=import-error
 else:
     from . import dialog as armjaor_form
     from .armajor import ArabicMnemonicMajor
@@ -26,14 +26,14 @@ class ArMajorDialog(QDialog):
 
         self.form.lineEdit.setFocus()
         self.form.lineEdit.setText(search_text)
-        self.form.searchButton.clicked.connect(self.accept)
-        self.form.copySelectedButton.clicked.connect(self.on_copy_selected)
+        self.form.searchButton.clicked.connect(self.accept) # type: ignore
+        self.form.copySelectedButton.clicked.connect(self.on_copy_selected) # type: ignore
         focusSearchHotkey = QShortcut(QKeySequence("Ctrl+F"), self)
-        focusSearchHotkey.activated.connect(self.form.lineEdit.setFocus)
-        self.form.wordToNum.toggled.connect(self.on_mode_changed)
+        focusSearchHotkey.activated.connect(self.form.lineEdit.setFocus) # type: ignore
+        self.form.wordToNum.toggled.connect(self.on_mode_changed) # type: ignore
         self.form.wordToNum.setChecked(word_to_num_checked)
         changeModeHotkey = QShortcut(QKeySequence("Ctrl+W"), self)
-        changeModeHotkey.activated.connect(self.toggle_mode)
+        changeModeHotkey.activated.connect(self.toggle_mode) # type: ignore
 
         self.major = major
         if search_text.strip():
