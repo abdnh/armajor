@@ -37,12 +37,13 @@ def open_dialog_in_editor(editor: Editor):
 
 
 def on_editor_did_init_buttons(buttons: List[str], editor: Editor):
+    global config
     btn = editor.addButton(
         icon=os.path.join(addon_dir, "icon.svg"),
         cmd="armajor",
         func=open_dialog_in_editor,
         tip="مولد نظام المذكرات الصوتي للعربية",
-        keys="Ctrl+Shift+A",
+        keys=config.get("shortcut", "Ctrl+Shift+K"),
     )
 
     buttons.append(btn)
@@ -53,5 +54,5 @@ if aqt.mw:
     action.setText("مولد نظام المذكرات الصوتي للعربية")
     aqt.mw.form.menuTools.addAction(action)
     action.triggered.connect(lambda: open_dialog(aqt.mw)) # type: ignore
-
+    config = aqt.mw.addonManager.getConfig(__name__)
     gui_hooks.editor_did_init_buttons.append(on_editor_did_init_buttons)
