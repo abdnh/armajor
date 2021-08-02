@@ -26,14 +26,14 @@ class ArMajorDialog(QDialog):
 
         self.form.lineEdit.setFocus()
         self.form.lineEdit.setText(search_text)
-        self.form.searchButton.clicked.connect(self.accept) # type: ignore
-        self.form.copySelectedButton.clicked.connect(self.on_copy_selected) # type: ignore
+        self.form.searchButton.clicked.connect(self.accept)  # type: ignore
+        self.form.copySelectedButton.clicked.connect(self.on_copy_selected)  # type: ignore
         focusSearchHotkey = QShortcut(QKeySequence("Ctrl+F"), self)
-        focusSearchHotkey.activated.connect(self.form.lineEdit.setFocus) # type: ignore
-        self.form.wordToNum.toggled.connect(self.on_mode_changed) # type: ignore
+        focusSearchHotkey.activated.connect(self.form.lineEdit.setFocus)  # type: ignore
+        self.form.wordToNum.toggled.connect(self.on_mode_changed)  # type: ignore
         self.form.wordToNum.setChecked(word_to_num_checked)
         changeModeHotkey = QShortcut(QKeySequence("Ctrl+W"), self)
-        changeModeHotkey.activated.connect(self.toggle_mode) # type: ignore
+        changeModeHotkey.activated.connect(self.toggle_mode)  # type: ignore
 
         self.major = major
         if search_text.strip():
