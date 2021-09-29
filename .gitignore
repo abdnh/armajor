@@ -7,4 +7,4 @@ src/dialog.py
 build*.zip
 *.pyc
 *.ankiaddon
-dev-profile/
+ankiprofile/

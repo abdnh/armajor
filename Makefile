@@ -36,7 +36,7 @@ build.zip: src/*
 
 addon: zip
 	cp build.zip armajor.ankiaddon
-	cp src/* dev-profile/addons21/armajor
+	cp src/* ankiprofile/addons21/armajor
 
 clean:
 	rm -f *.pyc
