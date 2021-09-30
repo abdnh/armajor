@@ -72,6 +72,13 @@
      </property>
     </widget>
    </item>
+   <item>
+    <widget class="QPushButton" name="showMappingsButton">
+     <property name="text">
+      <string>جدول التحويل</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources/>
