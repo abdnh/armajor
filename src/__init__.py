@@ -39,12 +39,13 @@ def open_dialog_in_editor(editor: Editor):
 
 def on_editor_did_init_buttons(buttons: List[str], editor: Editor):
     global config  # pylint: disable=global-statement
+    shortcut = config.get("shortcut", "Ctrl+Shift+K")
     btn = editor.addButton(
         icon=os.path.join(addon_dir, "icon.svg"),
         cmd="armajor",
         func=open_dialog_in_editor,
-        tip="مولد نظام المذكرات الصوتي للعربية",
-        keys=config.get("shortcut", "Ctrl+Shift+K"),
+        tip=f"مولد نظام المذكرات الصوتي للعربية ({shortcut})",
+        keys=shortcut,
     )
 
     buttons.append(btn)
