@@ -2,13 +2,13 @@ import os
 
 import pytest
 
-from .armajor import ArabicMnemonicMajor  # type: ignore
+from src.armajor import ArabicMnemonicMajor  # type: ignore
 
 
 @pytest.fixture
 def armajor():
     return ArabicMnemonicMajor(
-        filename=os.path.join(os.path.dirname(__file__), "words.txt")
+        filename=os.path.join(os.path.dirname(__file__), "../src/words.txt")
     )
 
 
