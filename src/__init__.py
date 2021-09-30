@@ -39,6 +39,8 @@ def open_dialog_in_editor(editor: Editor):
 
 def on_editor_did_init_buttons(buttons: List[str], editor: Editor):
     global config  # pylint: disable=global-statement
+    if not config:
+        config = {}
     shortcut = config.get("shortcut", "Ctrl+Shift+K")
     btn = editor.addButton(
         icon=os.path.join(addon_dir, "icon.svg"),
