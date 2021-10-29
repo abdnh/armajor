@@ -6,7 +6,6 @@ class ArabicMnemonicMajor:
     def __init__(self, filename: str = "words.txt"):
         self._read_words(filename)
 
-    # TODO: support custom mappings
     mappings = {
         "0": {"د", "م"},
         "1": {"ل", "ن", "ذ"},
@@ -64,35 +63,11 @@ class ArabicMnemonicMajor:
     def _numbers_to_consonants(self, text: str) -> Set[str]:
         numstr = "".join(reversed(text))
 
-        def get_combs(s: str) -> List[Tuple]:
-            "Get all possible combinations of adjacent digits."
-            if len(s) < 2:
-                return [(s,)]
-            if len(s) == 2:
-                return [(s[0], s[1]), (s,)]
-            ret = []
-            f = s[0]
-            rest = get_combs(s[1:])
-            for r in rest:
-                ret.append((f, *r))
-                ret.append((f + r[0], *r[1:]))
-            return ret
+        maps = []
+        for letter in numstr:
+            maps.append(self.mappings.get(letter))
 
-        combs = get_combs(numstr)
-
-        # generate a list of valid mappings for each combination
-        maps = {}
-        for comb in combs:
-            l = []
-            for chunk in comb:
-                if v := self.mappings.get(chunk, None):
-                    l.append(v)
-                else:
-                    # if any "chunk" of this combination has no valid mapping, skip the combination
-                    break
-            if len(l) == len(comb):
-                maps[comb] = l
-
+        # TODO: speed this up
         def get_cons_strs(l: List, i: int) -> Set[str]:
             "Return all possible consonant strings."
             if len(l) == i + 1:
@@ -104,12 +79,7 @@ class ArabicMnemonicMajor:
                     r.add(j + n)
             return r
 
-        # generate consonant strings from the mappings of each combination
-        ret = set()
-        for k in maps:
-            ret |= get_cons_strs(maps[k], 0)
-
-        return ret
+        return get_cons_strs(maps, 0)
 
     @staticmethod
     def clean_num(num: Union[int, str]) -> str:
@@ -124,9 +94,6 @@ class ArabicMnemonicMajor:
         res: Set = set()
         num = self.clean_num(num)
         if not num:
-            return res
-        # reject big numbers for now since they will take forever. 10 is enough anyway
-        if len(num) > 10:
             return res
 
         cons_list = self._numbers_to_consonants(num)
