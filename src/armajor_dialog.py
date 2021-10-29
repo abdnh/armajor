@@ -85,7 +85,9 @@ class ArMajorDialog(QDialog):
 
     def on_show_mappings(self):
         dlg = QDialog(self)
-        dlg.setLayoutDirection(QtCore.Qt.RightToLeft) # pylint: disable=c-extension-no-member
+        dlg.setLayoutDirection(
+            QtCore.Qt.RightToLeft
+        )  # pylint: disable=c-extension-no-member
         dlg.setWindowTitle("جدول تحويل الأرقام إلى حروف")
         table = QTableWidget(dlg)
         mappings = self.major.mappings
@@ -114,7 +116,9 @@ class ArMajorDialog(QDialog):
         )
 
         header = QLabel("جدول تحويل الأرقام إلى حروف", dlg)
-        header.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter) # pylint: disable=c-extension-no-member
+        header.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignHCenter
+        )  # pylint: disable=c-extension-no-member
         font = header.font()
         font.setPointSize(font.pointSize() + 5)
         font.setBold(True)
@@ -123,12 +127,16 @@ class ArMajorDialog(QDialog):
         desc = QLabel(
             'مأخوذ من <a href="https://t.me/Asmaae_Kollaha">كتاب الأسماء كلها</a>', dlg
         )
-        desc.setTextFormat(QtCore.Qt.TextFormat.RichText) # pylint: disable=c-extension-no-member
+        desc.setTextFormat(
+            QtCore.Qt.TextFormat.RichText
+        )  # pylint: disable=c-extension-no-member
         desc.setTextInteractionFlags(
             QtCore.Qt.TextInteractionFlag.TextBrowserInteraction  # pylint: disable=c-extension-no-member
         )
         desc.linkActivated.connect(
-            lambda link: QDesktopServices.openUrl(QtCore.QUrl(link)) # pylint: disable=c-extension-no-member
+            lambda link: QDesktopServices.openUrl(
+                QtCore.QUrl(link)
+            )  # pylint: disable=c-extension-no-member
         )
 
         vbox = QVBoxLayout()
