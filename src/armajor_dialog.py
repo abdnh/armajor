@@ -162,4 +162,4 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     major = ArabicMnemonicMajor("words.txt")
     d = ArMajorDialog(None, major)
-    d.exec_()
+    d.exec()

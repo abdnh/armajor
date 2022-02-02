@@ -22,7 +22,7 @@ def open_dialog(parent, search_text="", word_to_num_checked: bool = False):
     if not armajor:
         armajor = ArabicMnemonicMajor(words_filename)
     dialog = ArMajorDialog(parent, armajor, search_text, word_to_num_checked)
-    dialog.exec_()
+    dialog.exec()
 
 
 def contains_digit(s: str):
