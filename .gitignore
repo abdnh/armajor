@@ -3,8 +3,7 @@
 .pytest_cache/
 __pycache__/
 venv/
-src/dialog.py
-build*.zip
 *.pyc
 *.ankiaddon
 ankiprofile/
+build/

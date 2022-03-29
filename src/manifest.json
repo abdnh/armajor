@@ -1,5 +1,1 @@
-{
-    "name": "ArMajor (نظام المذكرات الصوتي للعربية)",
-    "package": "616438440",
-    "homepage": "https://github.com/abdnh/armajor"
-}
+{"name": "ArMajor", "homepage": "https://github.com/abdnh/armajor", "package": "armajor", "conflicts": ["616438440"]}

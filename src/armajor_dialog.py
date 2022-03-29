@@ -1,16 +1,11 @@
-import sys
+from aqt import qtmajor
+from aqt.qt import *
 
-# pylint: disable=no-name-in-module
-from PyQt5.QtWidgets import QAbstractItemView, QAbstractScrollArea, QDialog, QApplication, QHeaderView, QLabel, QShortcut, QTableWidget, QTableWidgetItem, QVBoxLayout  # type: ignore
-from PyQt5.QtGui import QDesktopServices, QKeySequence  # type: ignore
-from PyQt5 import QtCore
-
-if __name__ == "__main__":
-    import dialog as armjaor_form  # type: ignore # pylint: disable=import-error
-    from armajor import ArabicMnemonicMajor  # type: ignore # pylint: disable=import-error
+if qtmajor > 5:
+    from . import form_qt6 as armjaor_form
 else:
-    from . import dialog as armjaor_form
-    from .armajor import ArabicMnemonicMajor
+    from . import form_qt5 as armjaor_form
+from .armajor import ArabicMnemonicMajor
 
 
 class ArMajorDialog(QDialog):
@@ -86,7 +81,7 @@ class ArMajorDialog(QDialog):
     def on_show_mappings(self):
         dlg = QDialog(self)
         dlg.setLayoutDirection(
-            QtCore.Qt.RightToLeft
+            Qt.LayoutDirection.RightToLeft
         )  # pylint: disable=c-extension-no-member
         dlg.setWindowTitle("جدول تحويل الأرقام إلى حروف")
         table = QTableWidget(dlg)
@@ -94,8 +89,8 @@ class ArMajorDialog(QDialog):
         mappings[" "] = {}
         table.setColumnCount(3)
         table.setRowCount(len(mappings))
-        table.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
-        table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        table.setSizeAdjustPolicy(QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
+        table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         for i, (digit, letters) in enumerate(mappings.items()):
             digit_item = QTableWidgetItem(str(digit))
             letters_item = QTableWidgetItem(", ".join(letters))
@@ -117,7 +112,7 @@ class ArMajorDialog(QDialog):
 
         header = QLabel("جدول تحويل الأرقام إلى حروف", dlg)
         header.setAlignment(
-            QtCore.Qt.AlignmentFlag.AlignHCenter
+            Qt.AlignmentFlag.AlignHCenter
         )  # pylint: disable=c-extension-no-member
         font = header.font()
         font.setPointSize(font.pointSize() + 5)
@@ -128,14 +123,14 @@ class ArMajorDialog(QDialog):
             'مأخوذ من <a href="https://t.me/Asmaae_Kollaha">كتاب الأسماء كلها</a>', dlg
         )
         desc.setTextFormat(
-            QtCore.Qt.TextFormat.RichText
+            Qt.TextFormat.RichText
         )  # pylint: disable=c-extension-no-member
         desc.setTextInteractionFlags(
-            QtCore.Qt.TextInteractionFlag.TextBrowserInteraction  # pylint: disable=c-extension-no-member
+            Qt.TextInteractionFlag.TextBrowserInteraction  # pylint: disable=c-extension-no-member
         )
         desc.linkActivated.connect(
             lambda link: QDesktopServices.openUrl(
-                QtCore.QUrl(link)
+                QUrl(link)
             )  # pylint: disable=c-extension-no-member
         )
 
@@ -156,10 +151,3 @@ class ArMajorDialog(QDialog):
 
     def toggle_mode(self):
         self.form.wordToNum.setChecked(not self.form.wordToNum.isChecked())
-
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    major = ArabicMnemonicMajor("words.txt")
-    d = ArMajorDialog(None, major)
-    d.exec()
