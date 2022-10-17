@@ -4,5 +4,4 @@ pylint>=2.5.2,<3.0
 mypy>=0.770,<1.0
 anki>=2.1.49
 aqt>=2.1.49
-ankibuild
-git+https://github.com/abdnh/ankibuild#egg=ankibuild[qt5,qt6]
+ankibuild @ git+https://github.com/abdnh/ankibuild#egg=ankibuild[qt5,qt6]
